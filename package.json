@@ -1,0 +1,13 @@
+{
+  "name": "neo-demo-pro-app",
+  "private": true,
+  "workspaces": ["services/*"],
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^2.8.8"
+  }
+}
