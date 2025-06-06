@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  mongo-dev:
+    image: mongo:6.0
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-dev-data:/data/db
+  mongo-test:
+    image: mongo:6.0
+    ports:
+      - '27018:27017'
+    volumes:
+      - mongo-test-data:/data/db
+  auth-service:
+    build: ./services/auth-service
+    environment:
+      - MONGO_URL=mongodb://mongo-dev:27017/auth
+    depends_on:
+      - mongo-dev
+  accounts-service:
+    build: ./services/accounts-service
+    environment:
+      - MONGO_URL=mongodb://mongo-dev:27017/accounts
+    depends_on:
+      - mongo-dev
+  rewards-service:
+    build: ./services/rewards-service
+    environment:
+      - MONGO_URL=mongodb://mongo-dev:27017/rewards
+    depends_on:
+      - mongo-dev
+  transfers-service:
+    build: ./services/transfers-service
+    environment:
+      - MONGO_URL=mongodb://mongo-dev:27017/transfers
+    depends_on:
+      - mongo-dev
+volumes:
+  mongo-dev-data:
+  mongo-test-data:
