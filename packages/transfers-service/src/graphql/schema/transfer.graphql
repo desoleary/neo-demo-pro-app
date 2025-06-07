@@ -1,0 +1,10 @@
+# import * from '../../../skeleton/shared-schema.graphql'
+
+type TransferResult {
+  id: ID!
+  status: String!
+}
+
+type Mutation {
+  initiateTransfer(fromAccountId: ID!, toAccountId: ID!, amount: Float!): TransferResult
+}

@@ -1,18 +1,11 @@
 {
   "compilerOptions": {
-    "target": "ES2021",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "dist"
-  },
-  "include": [
-    "packages/*/src/**/*",
-    "client/src/**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "skipLibCheck": true
+  }
 }

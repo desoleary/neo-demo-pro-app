@@ -1,42 +1,5 @@
-# Node
 node_modules/
-.pnpm-debug.log
-.pnpm-store/
-
-# Build output
 dist/
-.next/
-coverage/
-turbo/
-.turbo/
-build/
-
-# Generated
-*.log
-*.tsbuildinfo
-*.cache
-*.DS_Store
-
-# GraphQL codegen
-**/src/graphql/generated/
-
-# Environment
 .env
-.env.*
-!.env.example
-
-# IDE/editor
-.idea/
-.vscode/
-*.swp
-
-# OS-specific
-Thumbs.db
 .DS_Store
-
-# pnpm lockfile is kept intentionally
-!pnpm-lock.yaml
-
-# npm lockfile should not exist
-package-lock.json
-yarn.lock
+pnpm-lock.yaml

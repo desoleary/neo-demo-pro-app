@@ -1,0 +1,15 @@
+# import * from '../../../skeleton/shared-schema.graphql'
+
+type Reward @key(fields: "id") {
+  id: ID!
+  description: String!
+  points: Int!
+}
+
+type Query {
+  getRewards(userId: ID!): [Reward]
+}
+
+type Mutation {
+  redeemReward(id: ID!): Reward
+}

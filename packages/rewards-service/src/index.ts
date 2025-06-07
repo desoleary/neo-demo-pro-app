@@ -1,70 +1,22 @@
-import { createServer } from '@graphql-yoga/node';
-import { ObjectId, MongoClient } from 'mongodb';
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { createObservabilityPlugins } from '@neo-rewards/skeleton';
 
-export const typeDefs = /* GraphQL */ `
-  type Reward {
-    id: ID!
-    userId: ID!
-    merchant: String!
-    points: Int!
-    redeemed: Boolean!
-    category: String!
-  }
+const typeDefs = readFileSync(join(__dirname, 'graphql/schema/reward.graphql'), 'utf8');
 
-  type Query {
-    getRewards(userId: ID!): [Reward!]!
-  }
+const resolvers = {};
 
-  type Mutation {
-    redeemReward(id: ID!): Reward
-  }
-`;
+async function start() {
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [createObservabilityPlugins()],
+  });
 
-interface Reward {
-  _id: ObjectId;
-  userId: ObjectId;
-  merchant: string;
-  points: number;
-  redeemed: boolean;
-  category: string;
+  const { url } = await startStandaloneServer(server, { listen: { port: 4003 } });
+  console.log(`rewards-service ready at ${url}`);
 }
 
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/rewards';
-
-export async function createServerInstance() {
-  const client = new MongoClient(MONGO_URL);
-  await client.connect();
-  const db = client.db();
-  const rewards = db.collection<Reward>('rewards');
-
-  const resolvers = {
-    Query: {
-      async getRewards(_: any, { userId }: { userId: string }) {
-        const r = await rewards.find({ userId: new ObjectId(userId) }).toArray();
-        return r.map((x) => ({ ...x, id: x._id.toHexString(), userId: x.userId.toHexString() }));
-      },
-    },
-    Mutation: {
-      async redeemReward(_: any, { id }: { id: string }) {
-        await rewards.updateOne({ _id: new ObjectId(id) }, { $set: { redeemed: true } });
-        const reward = await rewards.findOne({ _id: new ObjectId(id) });
-        if (!reward) return null;
-        return { ...reward, id: reward._id.toHexString(), userId: reward.userId.toHexString() };
-      },
-    },
-  };
-
-  const server = createServer({ schema: { typeDefs, resolvers } });
-  return server;
-}
-
-if (require.main === module) {
-  createServerInstance()
-    .then((server) => {
-      const port = process.env.PORT || 4003;
-      server.start({ port }, () => {
-        console.log(`rewards-service listening on ${port}`);
-      });
-    })
-    .catch((err) => console.error(err));
-}
+start();

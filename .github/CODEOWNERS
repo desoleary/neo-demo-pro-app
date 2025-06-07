@@ -1,9 +1,0 @@
-* @desoleary
-
-/packages/skeleton/ @desoleary
-/packages/gateway/ @desoleary
-/packages/accounts-service/ @desoleary
-/packages/auth-service/ @desoleary
-/packages/rewards-service/ @desoleary
-/packages/transfers-service/ @desoleary
-/client/ @desoleary
