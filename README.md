@@ -1,44 +1,145 @@
 # Neo Rewards Demo Monorepo
 
-This repository hosts the **Neo Rewards Demo** project. It showcases a modular Apollo Federation architecture with a single MongoDB instance and a React client. The repo is designed to be Codex/AI friendly and mentoring ready.
+This is the main monorepo for the Neo Rewards Demo project.
 
-## Architecture Overview
+The goal is to showcase a **modular, scalable architecture** for a customer-facing banking rewards app, aligned with modern Neo-style architecture patterns:
 
-- **Apollo Federation v2** with an Apollo Gateway and federated subgraph services
-- **Single MongoDB instance** for demo scope
-- **React + Vite client** using Apollo Client with generated hooks
-- **Shared skeleton package** providing configuration loaders, observability hooks, and utilities
-- **pnpm** workspaces managed by **TurboRepo**
-
-## Workspaces
-
-- `packages/skeleton` – shared utilities and observability hooks
-- `packages/gateway` – Apollo Gateway composing subgraphs
-- `packages/accounts-service` – example federated service
-- `packages/auth-service` – to be implemented
-- `packages/rewards-service` – to be implemented
-- `packages/transfers-service` – to be implemented
-- `client` – React application
-
-## Development
-
-Use **pnpm** to install dependencies and **TurboRepo** to orchestrate builds. Each package can be built or started individually.
-
-```bash
-pnpm install
-pnpm --filter @neo-rewards/gateway run dev
-```
-
-Docker Compose provides local MongoDB instances for development and testing.
-
-## Code Generation
-
-GraphQL code generation outputs are committed to the repository. Services generate local resolver types and the client generates React hooks from the gateway schema. See `CODEGEN.md` for details.
-
-## Observability
-
-Observability plugins (tracing and structured logging with correlation IDs) are provided via the skeleton package and used by both services and the gateway.
+- Web / mobile rewards and loyalty
+- Federated GraphQL API surface
+- Composable microservices approach
+- AI/Codex-friendly conventions
+- Mentoring-ready structure
 
 ---
 
-This README and the accompanying architecture YAML are the authoritative source of truth for project conventions.
+## Architecture
+
+- Monorepo managed with **pnpm** + **TurboRepo**
+- Apollo Federation v2 → Gateway + Subgraph services
+- Single MongoDB instance for demo scope
+- React + Vite client
+- Shared Skeleton package for cross-cutting concerns
+
+**Full architecture reference:** [Architecture.md](./Architecture.md)
+
+---
+
+## Monorepo Structure
+
+```
+packages/
+  skeleton/
+  gateway/
+  accounts-service/
+  auth-service/
+  rewards-service/
+  transfers-service/
+
+client/
+
+.github/workflows/ci.yml
+turbo.json
+pnpm-workspace.yaml
+```
+
+---
+
+## Development
+
+### Install dependencies
+
+```bash
+pnpm install
+```
+
+### Run dev
+
+```bash
+pnpm turbo run dev
+```
+
+### Run lint
+
+```bash
+pnpm turbo run lint
+```
+
+### Run test
+
+```bash
+pnpm turbo run test
+```
+
+### Run build
+
+```bash
+pnpm turbo run build
+```
+
+---
+
+## Codegen
+
+- GraphQL codegen is used in both client and services.
+- **Generated types/hooks are committed to repo** → see [CODEGEN.md](./CODEGEN.md).
+
+---
+
+## Commit Hygiene
+
+- Pre-commit checks:
+  - lint-staged
+  - commitlint
+  - Conventional Commits enforced
+
+→ See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+---
+
+## CI/CD
+
+GitHub Actions CI runs on PRs and pushes to main:
+
+- Lint
+- Test
+- Build
+- Codegen validation
+
+---
+
+## Ownership
+
+Ownership is defined via [CODEOWNERS](./.github/CODEOWNERS).
+
+---
+
+## Observability
+
+- Tracing via Apollo plugins
+- Structured logging
+- Observability hooks in Skeleton package
+
+---
+
+## AI Friendliness
+
+Architecture is designed to be AI/Codex-friendly:
+
+- Clear directory structure
+- Committed codegen
+- Architecture.md as source of truth
+
+---
+
+## Status
+
+🚀 Initial scaffold in progress  
+✅ Gateway and Skeleton established  
+✅ CI/CD in place  
+⬜ Client scaffold next  
+⬜ Additional services to be added  
+⬜ 100% test coverage target in progress  
+
+---
+
+Maintainer: [Your Name or GitHub handle]
