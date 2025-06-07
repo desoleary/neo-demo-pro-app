@@ -11,9 +11,15 @@ importers:
       '@apollo/subgraph':
         specifier: ^2.11.0
         version: 2.11.0(graphql@16.11.0)
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
       graphql-tag:
         specifier: ^2.12.6
         version: 2.12.6(graphql@16.11.0)
+      mongoose:
+        specifier: ^8.15.1
+        version: 8.15.1(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
     devDependencies:
       concurrently:
         specifier: ^9.1.2
@@ -82,12 +88,15 @@ importers:
       '@neo-rewards/skeleton':
         specifier: workspace:*
         version: link:../skeleton
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
       graphql:
         specifier: ^16.8.0
         version: 16.11.0
-      mongodb:
-        specifier: ^6.0.0
-        version: 6.17.0(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
+      mongoose:
+        specifier: ^8.15.1
+        version: 8.15.1(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
     devDependencies:
       fishery:
         specifier: ^2.3.1
@@ -113,12 +122,15 @@ importers:
       '@neo-rewards/skeleton':
         specifier: workspace:*
         version: link:../skeleton
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
       graphql:
         specifier: ^16.8.0
         version: 16.11.0
-      mongodb:
-        specifier: ^6.0.0
-        version: 6.17.0(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
+      mongoose:
+        specifier: ^8.15.1
+        version: 8.15.1(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
     devDependencies:
       fishery:
         specifier: ^2.3.1
@@ -169,12 +181,15 @@ importers:
       '@neo-rewards/skeleton':
         specifier: workspace:*
         version: link:../skeleton
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
       graphql:
         specifier: ^16.8.0
         version: 16.11.0
-      mongodb:
-        specifier: ^6.0.0
-        version: 6.17.0(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
+      mongoose:
+        specifier: ^8.15.1
+        version: 8.15.1(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
     devDependencies:
       fishery:
         specifier: ^2.3.1
@@ -206,12 +221,15 @@ importers:
       '@neo-rewards/skeleton':
         specifier: workspace:*
         version: link:../skeleton
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
       graphql:
         specifier: ^16.8.0
         version: 16.11.0
-      mongodb:
-        specifier: ^6.0.0
-        version: 6.17.0(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
+      mongoose:
+        specifier: ^8.15.1
+        version: 8.15.1(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
     devDependencies:
       fishery:
         specifier: ^2.3.1
@@ -1591,6 +1609,10 @@ packages:
   dom-accessibility-api@0.6.3:
     resolution: {integrity: sha512-7ZgogeTnjuHbo+ct10G9Ffp0mif17idi0IyWNVA/wcwcm7NPOD/WEHVP3n7n3MhXqxoIYm8d6MuZohYWIZ4T3w==}
 
+  dotenv@16.5.0:
+    resolution: {integrity: sha512-m/C+AwOAr9/W1UOIZUo232ejMNnJAJtYQjUbHoNTBNTJSvqzzDh7vnrei3o3r3m9blf6ZoDkvcw0VmozNRFJxg==}
+    engines: {node: '>=12'}
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -2027,6 +2049,10 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
+  kareem@2.6.3:
+    resolution: {integrity: sha512-C3iHfuGUXK2u8/ipq9LfjFfXFxAZMQJJq7vLS45r3D9Y2xQ/m4S8zaR4zMLFWh9AsNPXmcFfUDhTEO8UIC/V6Q==}
+    engines: {node: '>=12.0.0'}
+
   local-pkg@0.5.1:
     resolution: {integrity: sha512-9rrA30MRRP3gBD3HTGnC6cDFpaE1kVDWxWgqWJUN0RvDNAo+Nz/9GxB+nHOH0ifbVFy0hSA1V6vFDvnx54lTEQ==}
     engines: {node: '>=14'}
@@ -2199,8 +2225,8 @@ packages:
     resolution: {integrity: sha512-mLV7SEiov2LHleRJPMPrK2PMyhXFZt2UQLC4VD4pnth3jMjYKHhtqfwwkkvS/NXuo/Fp3vbhaNcXrIDaLRb9Tg==}
     engines: {node: '>=12.9.0'}
 
-  mongodb@6.17.0:
-    resolution: {integrity: sha512-neerUzg/8U26cgruLysKEjJvoNSXhyID3RvzvdcpsIi2COYM3FS3o9nlH7fxFtefTb942dX3W9i37oPfCVj4wA==}
+  mongodb@6.16.0:
+    resolution: {integrity: sha512-D1PNcdT0y4Grhou5Zi/qgipZOYeWrhLEpk33n3nm6LGtz61jvO88WlrWCK/bigMjpnOdAUKKQwsGIl0NtWMyYw==}
     engines: {node: '>=16.20.1'}
     peerDependencies:
       '@aws-sdk/credential-providers': ^3.188.0
@@ -2225,6 +2251,18 @@ packages:
         optional: true
       socks:
         optional: true
+
+  mongoose@8.15.1:
+    resolution: {integrity: sha512-RhQ4DzmBi5BNGcS0w4u1vdMRIKcteXTCNzDt1j7XRcdWYBz1MjMjulBhPaeC5jBCHOD1yinuOFTTSOWLLGexWw==}
+    engines: {node: '>=16.20.1'}
+
+  mpath@0.9.0:
+    resolution: {integrity: sha512-ikJRQTk8hw5DEoFVxHG1Gn9T/xcjtdnOKIU1JTmGjZZlg9LST2mBLmcX3/ICIbgJydT2GOc15RnNy5mHmzfSew==}
+    engines: {node: '>=4.0.0'}
+
+  mquery@5.0.0:
+    resolution: {integrity: sha512-iQMncpmEK8R8ncT8HJGsGc9Dsp8xcgYMVSbs5jgnm1lFHTZqMJTUWTDx1LBO8+mK3tPNZWFLBghQEIOULSTHZg==}
+    engines: {node: '>=14.0.0'}
 
   ms@2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
@@ -2594,6 +2632,9 @@ packages:
   side-channel@1.1.0:
     resolution: {integrity: sha512-ZX99e6tRweoUXqR+VBrslhda51Nh5MTQwou5tnUDgbtyM0dBgmhEDtWGP/xbKn6hqfPRHujUNwz5fy/wbbhnpw==}
     engines: {node: '>= 0.4'}
+
+  sift@17.1.3:
+    resolution: {integrity: sha512-Rtlj66/b0ICeFzYTuNvX/EF1igRbbnGSvEyT79McoZa/DeGhMyC5pWKOEsZKnpkqtSeovd5FL/bjHWC3CIIvCQ==}
 
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
@@ -4849,6 +4890,8 @@ snapshots:
 
   dom-accessibility-api@0.6.3: {}
 
+  dotenv@16.5.0: {}
+
   dunder-proto@1.0.1:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -5349,6 +5392,8 @@ snapshots:
 
   json5@2.2.3: {}
 
+  kareem@2.6.3: {}
+
   local-pkg@0.5.1:
     dependencies:
       mlly: 1.7.4
@@ -5542,7 +5587,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  mongodb@6.17.0(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4):
+  mongodb@6.16.0(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4):
     dependencies:
       '@mongodb-js/saslprep': 1.2.2
       bson: 6.10.4
@@ -5550,6 +5595,33 @@ snapshots:
     optionalDependencies:
       '@aws-sdk/credential-providers': 3.826.0
       socks: 2.8.4
+
+  mongoose@8.15.1(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4):
+    dependencies:
+      bson: 6.10.4
+      kareem: 2.6.3
+      mongodb: 6.16.0(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
+      mpath: 0.9.0
+      mquery: 5.0.0
+      ms: 2.1.3
+      sift: 17.1.3
+    transitivePeerDependencies:
+      - '@aws-sdk/credential-providers'
+      - '@mongodb-js/zstd'
+      - gcp-metadata
+      - kerberos
+      - mongodb-client-encryption
+      - snappy
+      - socks
+      - supports-color
+
+  mpath@0.9.0: {}
+
+  mquery@5.0.0:
+    dependencies:
+      debug: 4.4.1
+    transitivePeerDependencies:
+      - supports-color
 
   ms@2.0.0: {}
 
@@ -5946,6 +6018,8 @@ snapshots:
       side-channel-list: 1.0.0
       side-channel-map: 1.0.1
       side-channel-weakmap: 1.0.2
+
+  sift@17.1.3: {}
 
   siginfo@2.0.0: {}
 

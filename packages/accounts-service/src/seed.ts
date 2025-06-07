@@ -1,20 +1,31 @@
-import { ObjectId } from 'mongodb';
-import { accounts, transactions } from './data';
+import { connect, disconnect } from 'mongoose';
+import dotenv from 'dotenv';
 import { accountFactory, transactionFactory } from './factories/accountFactory';
+import AccountModel from './models/Account';
+import TransactionModel from './models/Transaction';
+
+dotenv.config();
 
 export async function seed() {
-  accounts.length = 0;
-  transactions.length = 0;
-  for (let i = 0; i < 100; i++) {
-    const accountData = accountFactory.build();
-    const accountId = new ObjectId();
-    accounts.push({ ...accountData, id: accountId.toHexString() });
+  await connect(process.env.MONGO_URL as string);
 
-    const transactionData = transactionFactory.build({ accountId: accountId.toHexString() });
-    transactions.push({ ...transactionData, id: new ObjectId().toHexString() });
-  }
+  await AccountModel.deleteMany({});
+  await TransactionModel.deleteMany({});
+
+  const accounts = Array.from({ length: 100 }, () => accountFactory.build());
+  const transactions = Array.from({ length: 100 }, () => transactionFactory.build());
+
+  await AccountModel.insertMany(accounts);
+  await TransactionModel.insertMany(transactions);
+
+  console.log('Seeded accounts and transactions.');
+
+  await disconnect();
 }
 
 if (require.main === module) {
-  seed().then(() => console.log('seeded accounts:', accounts.length));
+  seed().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
 }
