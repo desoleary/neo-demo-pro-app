@@ -8,6 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "outDir": "dist"
   },
-  "include": ["services/*/src/**/*"],
+  "include": ["services/*/src/**/*", "packages/*/src/**/*"],
   "exclude": ["node_modules"]
 }
