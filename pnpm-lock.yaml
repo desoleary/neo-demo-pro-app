@@ -212,6 +212,9 @@ importers:
         specifier: ^8.15.1
         version: 8.15.1(@aws-sdk/credential-providers@3.826.0)(socks@2.8.4)
     devDependencies:
+      '@types/uuid':
+        specifier: ^10.0.0
+        version: 10.0.0
       fishery:
         specifier: ^2.3.1
         version: 2.3.1
