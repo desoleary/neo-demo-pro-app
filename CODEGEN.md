@@ -1,7 +1,33 @@
-# GraphQL Code Generation
+# CODEGEN.md
 
-This repository uses `graphql-codegen` to generate TypeScript types and hooks.
+## Policy
 
-Run `pnpm generate` from the repository root or from individual packages to
-regenerate artifacts after changing GraphQL schemas. Generated files are
-committed to the repository.
+- All GraphQL codegen output must be committed to the repo.
+- This ensures AI tools and PR reviewers can reason about the API.
+
+## Client
+
+- Client codegen generates:
+  - React Apollo hooks
+  - TypeScript types
+
+## Services
+
+- Each service generates:
+  - Resolver types from local schema
+
+## Validation
+
+- CI step checks codegen output is up to date.
+- Developers must run:
+
+```bash
+pnpm turbo run generate
+```
+
+before committing API changes.
+
+## Target Directories
+
+- Client: `client/src/graphql/generated/`
+- Services: `packages/*/src/graphql/types.generated.ts`

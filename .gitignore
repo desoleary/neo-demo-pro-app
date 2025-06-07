@@ -1,26 +1,42 @@
-# Logs
-logs
+# Node
+node_modules/
+.pnpm-debug.log
+.pnpm-store/
+
+# Build output
+dist/
+.next/
+coverage/
+turbo/
+.turbo/
+build/
+
+# Generated
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+*.tsbuildinfo
+*.cache
+*.DS_Store
 
-node_modules
-dist
-dist-ssr
-*.local
-coverage
+# GraphQL codegen
+**/src/graphql/generated/
 
-# Editor directories and files
-.vscode/*
-.history/*
-!.vscode/extensions.json
-.idea
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE/editor
+.idea/
+.vscode/
+*.swp
+
+# OS-specific
+Thumbs.db
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+
+# pnpm lockfile is kept intentionally
+!pnpm-lock.yaml
+
+# npm lockfile should not exist
+package-lock.json
+yarn.lock
