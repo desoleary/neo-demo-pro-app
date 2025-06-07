@@ -1,8 +1,3 @@
 packages:
-  - packages/skeleton
-  - packages/gateway
-  - packages/accounts-service
-  - packages/auth-service
-  - packages/rewards-service
-  - packages/transfers-service
+  - 'packages/*'
   - client

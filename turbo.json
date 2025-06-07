@@ -1,6 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "pipeline": {
+    "lint": {},
     "build": {
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**"]
@@ -8,7 +9,6 @@
     "dev": {
       "cache": false
     },
-    "lint": {},
     "test": {},
     "seed": {},
     "generate": {}
