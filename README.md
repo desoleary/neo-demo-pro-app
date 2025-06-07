@@ -21,20 +21,6 @@ pnpm build
 
 Run services individually from their package directories using `pnpm dev`.
 
-## Testing
-Install dependencies before running tests to ensure all packages and
-their binaries are available.
-
-```bash
-pnpm install
-pnpm test
-```
-
-Tests use `mongodb-memory-server` which downloads MongoDB binaries at run time.
-The first run requires network access. If your environment cannot access the
-download servers, supply prebuilt binaries using the `MONGOMS_DOWNLOAD_DIR`
-environment variable.
-
 ## Dynamic UI Components
 
 Example usage for `DynamicForm`:

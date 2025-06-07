@@ -14,7 +14,6 @@ pnpm dev
 
 ## Testing
 ```bash
-pnpm install
 pnpm test
 ```
 
