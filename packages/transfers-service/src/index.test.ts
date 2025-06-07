@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createObservabilityPlugins } from '@neo-rewards/skeleton';
+import { createObservabilityPlugins } from '../../skeleton/src/index';
 
 describe('transfers-service', () => {
   it('loads observability plugin', () => {

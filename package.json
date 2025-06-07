@@ -8,13 +8,16 @@
   "scripts": {
     "lint": "echo \"linting\"",
     "build": "pnpm -r build",
+    "dev": "pnpm start:all",
     "start:services": "pnpm --parallel --filter \"@neo-rewards/*-service\" dev",
     "start:gateway": "pnpm --filter @neo-rewards/gateway dev",
     "start:client": "pnpm --filter client dev",
     "start:all": "concurrently \"pnpm start:services\" \"pnpm start:gateway\" \"pnpm start:client\"",
-    "test": "pnpm run build && pnpm -r test:unit",
-    "test:unit": "pnpm -r exec vitest run",
-    "test:watch": "pnpm -r exec vitest --watch",
+    "test:services": "pnpm --parallel --filter \"@neo-rewards/*-service\" exec vitest run",
+    "test:gateway": "pnpm --filter @neo-rewards/gateway exec vitest run",
+    "test:client": "pnpm --filter client exec vitest run",
+    "test:build": "pnpm build",
+    "test:all": "concurrently \"pnpm test:build\" \"pnpm test:services\" \"pnpm test:gateway\" \"pnpm test:client\"",
     "seed": "pnpm --filter \"@neo-rewards/*-service\" seed"
   },
   "workspaces": [
@@ -26,7 +29,9 @@
   },
   "dependencies": {
     "@apollo/subgraph": "^2.11.0",
-    "graphql-tag": "^2.12.6"
+    "dotenv": "^16.5.0",
+    "graphql-tag": "^2.12.6",
+    "mongoose": "^8.15.1"
   },
   "overrides": {
     "vite": "^5.4.19"

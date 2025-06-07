@@ -14,8 +14,9 @@
   "dependencies": {
     "@apollo/server": "^4.7.5",
     "graphql": "^16.8.0",
-    "mongodb": "^6.0.0",
-    "@neo-rewards/skeleton": "workspace:*"
+    "@neo-rewards/skeleton": "workspace:*",
+    "mongoose": "^8.15.1",
+    "dotenv": "^16.5.0"
   },
   "devDependencies": {
     "ts-node": "^10.9.1",

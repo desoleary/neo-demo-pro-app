@@ -11,6 +11,3 @@ export interface Transaction {
   amount: number;
   date: string;
 }
-
-export const accounts: Account[] = [];
-export const transactions: Transaction[] = [];

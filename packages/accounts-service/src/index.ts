@@ -5,8 +5,13 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import gql from 'graphql-tag';
 import { createObservabilityPlugins } from '@neo-rewards/skeleton';
-import { accounts, transactions } from './data';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import AccountModel from './models/Account';
+import TransactionModel from './models/Transaction';
 import { seed } from './seed';
+
+dotenv.config();
 
 const typeDefs = gql`
   ${readFileSync(join(__dirname, 'graphql/schema/account.graphql'), 'utf8')}
@@ -15,14 +20,17 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     getUserAccounts: (_: any, { userId }: { userId: string }) =>
-      accounts.filter((a) => a.userId === userId),
+      AccountModel.find({ userId }).exec(),
     getTransactionHistory: (_: any, { accountId }: { accountId: string }) =>
-      transactions.filter((t) => t.accountId === accountId),
+      TransactionModel.find({ accountId }).exec(),
   },
 };
 
 async function start() {
-  await seed();
+  await mongoose.connect(process.env.MONGO_URL as string);
+  if (process.env.NODE_ENV === 'development') {
+    await seed();
+  }
   const schema = buildSubgraphSchema([{ typeDefs, resolvers }]);
 
   const server = new ApolloServer({
