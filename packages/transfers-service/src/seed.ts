@@ -1,29 +1,57 @@
-import { connect, disconnect } from 'mongoose';
-import dotenv from 'dotenv';
-import path from 'path';
-import { transferFactory } from './factories/transferFactory';
-import TransferModel from './models/Transfer';
+import { v4 as uuidv4 } from 'uuid';
+import { transfers } from './data';
 
-// Load .env from project root
-dotenv.config({ path: path.resolve(process.cwd(), '../../.env') });
-
-export async function seed() {
-  await connect(process.env.MONGO_URL as string);
-
-  await TransferModel.deleteMany({});
-
-  const transfers = Array.from({ length: 100 }, () => transferFactory.build());
-
-  await TransferModel.insertMany(transfers);
-
-  console.log(`Seeded ${transfers.length} transfers.`);
-
-  await disconnect();
+// Generate random date within the last 30 days
+function randomDate() {
+  const now = new Date();
+  const pastDate = new Date();
+  pastDate.setDate(now.getDate() - 30);
+  
+  return new Date(
+    pastDate.getTime() + Math.random() * (now.getTime() - pastDate.getTime())
+  ).toISOString();
 }
 
+// Generate random amount between min and max
+function randomAmount(min: number, max: number) {
+  return parseFloat((Math.random() * (max - min) + min).toFixed(2));
+}
+
+export async function seed() {
+  // Clear existing data
+  transfers.length = 0;
+
+  // Generate 100 random transfers
+  for (let i = 0; i < 100; i++) {
+    const fromAccountId = String(Math.floor(Math.random() * 10) + 1);
+    let toAccountId: string;
+    
+    // Make sure toAccountId is different from fromAccountId
+    do {
+      toAccountId = String(Math.floor(Math.random() * 10) + 1);
+    } while (toAccountId === fromAccountId);
+    
+    const amount = randomAmount(10, 1000);
+    const now = new Date().toISOString();
+    
+    transfers.push({
+      id: uuidv4(),
+      fromAccountId,
+      toAccountId,
+      amount,
+      status: Math.random() > 0.2 ? 'COMPLETED' : 'PENDING',
+      createdAt: randomDate(),
+      updatedAt: now,
+    });
+  }
+
+  console.log(`Seeded ${transfers.length} transfers.`);
+}
+
+// Run seed if this file is executed directly
 if (require.main === module) {
   seed().catch((err) => {
-    console.error(err);
+    console.error('Error seeding transfers:', err);
     process.exit(1);
   });
 }
