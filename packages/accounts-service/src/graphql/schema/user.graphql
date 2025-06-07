@@ -1,9 +1,0 @@
-type User @key(fields: "id") {
-  id: ID!
-  email: String!
-  name: String!
-}
-
-type Query {
-  user(id: ID!): User
-}

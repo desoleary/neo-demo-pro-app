@@ -1,70 +1,40 @@
-import { createServer } from '@graphql-yoga/node';
-import { ObjectId, MongoClient } from 'mongodb';
+import { ApolloServer } from '@apollo/server';
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { buildSubgraphSchema } from '@apollo/subgraph';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import gql from 'graphql-tag';
+import { createObservabilityPlugins } from '@neo-rewards/skeleton';
 
-export const typeDefs = /* GraphQL */ `
-  type Reward {
-    id: ID!
-    userId: ID!
-    merchant: String!
-    points: Int!
-    redeemed: Boolean!
-    category: String!
-  }
-
-  type Query {
-    getRewards(userId: ID!): [Reward!]!
-  }
-
-  type Mutation {
-    redeemReward(id: ID!): Reward
-  }
+const typeDefs = gql`
+  ${readFileSync(join(__dirname, 'graphql/schema/reward.graphql'), 'utf8')}
 `;
 
-interface Reward {
-  _id: ObjectId;
-  userId: ObjectId;
-  merchant: string;
-  points: number;
-  redeemed: boolean;
-  category: string;
+const resolvers = {
+  // Add your resolvers here
+};
+
+async function start() {
+  const schema = buildSubgraphSchema([{ typeDefs, resolvers }]);
+  
+  const server = new ApolloServer({
+    schema,
+    plugins: [createObservabilityPlugins()],
+  });
+
+  const { url } = await startStandaloneServer(server, { 
+    listen: { 
+      port: 4003,
+      host: '0.0.0.0' 
+    } 
+  });
+  
+  const schemaContent = readFileSync(join(__dirname, 'graphql/schema/reward.graphql'), 'utf8');
+  console.log(`🚀 rewards-service ready at ${url}`);
+  console.log(`📄 Schema loaded with ${schemaContent.split('\n').length} lines`);
 }
 
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/rewards';
-
-export async function createServerInstance() {
-  const client = new MongoClient(MONGO_URL);
-  await client.connect();
-  const db = client.db();
-  const rewards = db.collection<Reward>('rewards');
-
-  const resolvers = {
-    Query: {
-      async getRewards(_: any, { userId }: { userId: string }) {
-        const r = await rewards.find({ userId: new ObjectId(userId) }).toArray();
-        return r.map((x) => ({ ...x, id: x._id.toHexString(), userId: x.userId.toHexString() }));
-      },
-    },
-    Mutation: {
-      async redeemReward(_: any, { id }: { id: string }) {
-        await rewards.updateOne({ _id: new ObjectId(id) }, { $set: { redeemed: true } });
-        const reward = await rewards.findOne({ _id: new ObjectId(id) });
-        if (!reward) return null;
-        return { ...reward, id: reward._id.toHexString(), userId: reward.userId.toHexString() };
-      },
-    },
-  };
-
-  const server = createServer({ schema: { typeDefs, resolvers } });
-  return server;
-}
-
-if (require.main === module) {
-  createServerInstance()
-    .then((server) => {
-      const port = process.env.PORT || 4003;
-      server.start({ port }, () => {
-        console.log(`rewards-service listening on ${port}`);
-      });
-    })
-    .catch((err) => console.error(err));
-}
+start().catch(error => {
+  console.error('Failed to start rewards-service:', error);
+  process.exit(1);
+});

@@ -1,0 +1,24 @@
+# import * from '../../../skeleton/shared-schema.graphql'
+
+type Account @key(fields: "id") {
+  id: ID!
+  type: String!
+  balance: Float!
+  userId: ID!
+}
+
+type Transaction {
+  id: ID!
+  accountId: ID!
+  amount: Float!
+  date: String!
+}
+
+extend type User @key(fields: "id") {
+  id: ID! @external
+}
+
+type Query {
+  getUserAccounts(userId: ID!): [Account]
+  getTransactionHistory(accountId: ID!): [Transaction]
+}
