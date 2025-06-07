@@ -6,20 +6,26 @@
     "client"
   ],
   "scripts": {
-    "lint": "eslint .",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
     "format": "prettier --write .",
-    "generate": "graphql-codegen",
+    "generate": "turbo run generate",
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.3.0",
     "@graphql-codegen/cli": "3.0.0",
     "@graphql-codegen/typescript": "3.0.0",
     "@graphql-codegen/typescript-resolvers": "3.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.33.1",
+    "@typescript-eslint/parser": "^8.33.1",
     "eslint": "^8.56.0",
-    "prettier": "^2.8.8",
-    "lint-staged": "^15.2.0",
     "husky": "^8.0.0",
-    "@commitlint/cli": "^19.3.0",
-    "@commitlint/config-conventional": "^19.3.0"
+    "lint-staged": "^15.2.0",
+    "prettier": "^2.8.8",
+    "turbo": "^1.13.0"
   }
 }
