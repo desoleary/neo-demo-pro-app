@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "generate": "graphql-codegen"
   },
   "devDependencies": {
     "eslint": "^8.56.0",
