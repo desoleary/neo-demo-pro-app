@@ -1,12 +1,12 @@
 export interface Account {
-  id: string;
+  id?: string;
   userId: string;
   type: string;
   balance: number;
 }
 
 export interface Transaction {
-  id: string;
+  id?: string;
   accountId: string;
   amount: number;
   date: string;
