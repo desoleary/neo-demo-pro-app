@@ -7,12 +7,15 @@
   },
   "scripts": {
     "lint": "echo \"linting\"",
-    "test": "pnpm -r test",
     "build": "pnpm -r build",
     "start:services": "pnpm --parallel --filter \"@neo-rewards/*-service\" dev",
     "start:gateway": "pnpm --filter @neo-rewards/gateway dev",
     "start:client": "pnpm --filter client dev",
-    "start:all": "concurrently \"pnpm start:services\" \"pnpm start:gateway\" \"pnpm start:client\""
+    "start:all": "concurrently \"pnpm start:services\" \"pnpm start:gateway\" \"pnpm start:client\"",
+    "test": "pnpm run build && pnpm -r test:unit",
+    "test:unit": "pnpm -r exec vitest run",
+    "test:watch": "pnpm -r exec vitest --watch",
+    "seed": "pnpm --filter \"@neo-rewards/*-service\" seed"
   },
   "workspaces": [
     "packages/*",
@@ -24,5 +27,8 @@
   "dependencies": {
     "@apollo/subgraph": "^2.11.0",
     "graphql-tag": "^2.12.6"
+  },
+  "overrides": {
+    "vite": "^5.4.19"
   }
 }
