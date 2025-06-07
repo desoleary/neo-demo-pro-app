@@ -12,7 +12,8 @@
     "start:services": "pnpm --parallel --filter \"@neo-rewards/*-service\" dev",
     "start:gateway": "pnpm --filter @neo-rewards/gateway dev",
     "start:client": "pnpm --filter client dev",
-    "start:all": "concurrently \"pnpm start:services\" \"pnpm start:gateway\" \"pnpm start:client\""
+    "start:all": "concurrently \"pnpm start:services\" \"pnpm start:gateway\" \"pnpm start:client\"",
+    "seed": "pnpm --filter \"@neo-rewards/*-service\" seed"
   },
   "workspaces": [
     "packages/*",

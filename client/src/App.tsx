@@ -1,22 +1,28 @@
-import { gql, useQuery } from '@apollo/client';
 import React from 'react';
-
-const GET_USER_PROFILE = gql`
-  query GetUserProfile($id: ID!) {
-    getUserProfile(id: $id) {
-      id
-      email
-      tier
-    }
-  }
-`;
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './hooks/apolloClient';
+import { AppShell } from './components/AppShell';
+import { DashboardPage } from './pages/DashboardPage';
+import { UsersPage } from './pages/UsersPage';
+import { AccountsPage } from './pages/AccountsPage';
+import { RewardsPage } from './pages/RewardsPage';
+import { TransfersPage } from './pages/TransfersPage';
 
 export default function App() {
-  const { data } = useQuery(GET_USER_PROFILE, { variables: { id: '1' } });
   return (
-    <div>
-      <h1>Neo Rewards Demo</h1>
-      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
-    </div>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <AppShell>
+          <Routes>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/accounts" element={<AccountsPage />} />
+            <Route path="/rewards" element={<RewardsPage />} />
+            <Route path="/transfers" element={<TransfersPage />} />
+          </Routes>
+        </AppShell>
+      </BrowserRouter>
+    </ApolloProvider>
   );
 }

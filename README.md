@@ -20,3 +20,34 @@ pnpm build
 ```
 
 Run services individually from their package directories using `pnpm dev`.
+
+## Dynamic UI Components
+
+Example usage for `DynamicForm`:
+
+```tsx
+import { DynamicForm } from './src/components/DynamicForm';
+import { userFormSchema } from './src/schemas/userFormSchema';
+
+<DynamicForm schema={userFormSchema} onSubmit={console.log} />
+```
+
+Example usage for `DynamicTable`:
+
+```tsx
+import { DynamicTable } from './src/components/DynamicTable';
+import { userTableColumns } from './src/schemas/userTableSchema';
+
+<DynamicTable columns={userTableColumns} data={[{ id: '1', email: 'a@b.com', tier: 'gold' }]} />
+```
+
+Example usage for `DynamicChart`:
+
+```tsx
+import { DynamicChart } from './src/components/DynamicChart';
+import { sampleChartConfig } from './src/schemas/chartConfig';
+
+<DynamicChart config={sampleChartConfig} />
+```
+
+The Dashboard page composes these components via `DynamicLayout`.
