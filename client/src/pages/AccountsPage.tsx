@@ -20,13 +20,29 @@ export function AccountsPage() {
   const [cursor, setCursor] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, loading, refetch } = useQuery(GET_ACCOUNTS, {
+  // In a real app, you'd get this from auth context or user selection
+  const userId = '1'; // Temporary hardcoded user ID for testing
+
+  const { data, loading, error, refetch } = useQuery(GET_ACCOUNTS, {
     variables: {
+      userId,
       first: 10,
       after: cursor,
-      orderBy: { field: '_id', direction: 'ASC' },
+      orderBy: { field: 'id', order: 'ASC' },
+    },
+    skip: !userId, // Skip query if no user ID is available
+    onCompleted: (data) => {
+      console.log('Accounts query completed:', data);
+      if (data?.accounts?.edges) {
+        console.log('Accounts found:', data.accounts.edges.length);
+      }
+    },
+    onError: (error) => {
+      console.error('Error fetching accounts:', error);
     },
   });
+
+  console.log('Query state:', { loading, error, data });
 
   const [createAccount, { loading: createLoading }] = useMutation(CREATE_ACCOUNT, {
     onCompleted: () => {

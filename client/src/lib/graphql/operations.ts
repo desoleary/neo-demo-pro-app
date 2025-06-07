@@ -64,8 +64,8 @@ export const DELETE_USER = gql`
 
 // Account Operations
 export const GET_ACCOUNTS = gql`
-  query GetAccounts($first: Int, $after: String, $orderBy: OrderByInput, $filter: AccountFilterInput) {
-    accounts(first: $first, after: $after, orderBy: $orderBy, filter: $filter) {
+  query GetAccounts($userId: ID!, $first: Int, $after: String, $orderBy: OrderByInput, $filter: AccountFilterInput) {
+    accounts(userId: $userId, first: $first, after: $after, orderBy: $orderBy, filter: $filter) {
       totalCount
       pageInfo {
         hasNextPage
@@ -73,10 +73,11 @@ export const GET_ACCOUNTS = gql`
       }
       edges {
         node {
+          id
           _id
-          userId
           type
           balance
+          userId
         }
         cursor
       }
