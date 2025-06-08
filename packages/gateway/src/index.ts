@@ -67,7 +67,7 @@ async function startGateway() {
 
     const server = new ApolloServer({
       gateway,
-      plugins: [createObservabilityPlugins()],
+      plugins: [],
     });
 
     const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });

@@ -5,11 +5,12 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "dev": "ts-node src/index.ts",
+    "generate-schema": "generate-schema 'src/graphql/schema/**/*.graphql' './schema.graphql'",
+    "build": "tsc && pnpm generate-schema",
+    "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
     "test": "vitest",
-    "seed": "ts-node src/seed.ts"
+    "seed": "tsx src/seed.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.7.5",
@@ -19,10 +20,10 @@
     "dotenv": "^16.5.0"
   },
   "devDependencies": {
-    "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "vitest": "^1.0.0",
     "mongodb-memory-server": "^8.11.0",
-    "fishery": "^2.3.1"
+    "fishery": "^2.3.1",
+    "tsx": "^4.7.0"
   }
 }

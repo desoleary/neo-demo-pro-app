@@ -6,8 +6,13 @@
     "node": ">=22.10.0"
   },
   "scripts": {
-    "lint": "echo \"linting\"",
+    "prepare": "pnpm build",
+    "generate-schemas": "pnpm --parallel --filter \"@neo-rewards/*-service\" run generate-schema",
     "build": "pnpm -r build",
+    "lint": "echo \"linting\"",
+    "lint:fix": "echo \"linting and fixing\"",
+    "check:build": "pnpm build",
+    "check:all": "concurrently \"pnpm check:build\" \"pnpm test:services\" \"pnpm test:gateway\" \"pnpm test:client\"",
     "dev": "pnpm start:all",
     "start:services": "pnpm --parallel --filter \"@neo-rewards/*-service\" dev",
     "start:gateway": "pnpm --filter @neo-rewards/gateway dev",
@@ -16,8 +21,9 @@
     "test:services": "pnpm --parallel --filter \"@neo-rewards/*-service\" exec vitest run",
     "test:gateway": "pnpm --filter @neo-rewards/gateway exec vitest run",
     "test:client": "pnpm --filter client exec vitest run",
-    "test:build": "pnpm build",
+    "test:build": "pnpm check:build",
     "test:all": "concurrently \"pnpm test:build\" \"pnpm test:services\" \"pnpm test:gateway\" \"pnpm test:client\"",
+    "ci:all": "pnpm prepare && pnpm generate-schemas && pnpm check:all && pnpm lint",
     "seed": "pnpm --filter \"@neo-rewards/*-service\" seed",
     "kill-apps": "pkill -f \"node|ts-node\""
   },

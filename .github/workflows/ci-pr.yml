@@ -1,12 +1,10 @@
-name: CI
+name: CI PR Checks
 
 on:
-  push:
-    branches: [main]
   pull_request:
 
 jobs:
-  build:
+  pr-checks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -31,13 +29,3 @@ jobs:
 
       - name: Run tests
         run: pnpm test
-
-      - name: Build project
-        run: pnpm build
-
-      - name: Upload Generated Schemas
-        uses: actions/upload-artifact@v4.3.1
-        with:
-          name: graphql-schemas
-          path: |
-            packages/*/schema.graphql

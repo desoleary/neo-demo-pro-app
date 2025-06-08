@@ -53,7 +53,6 @@ async function resolveGetUserAccounts(
       { userId: typeof userId === 'string' ? parseInt(userId, 10) : userId }
     ].filter(Boolean)
   };
-  console.log('Base query:', JSON.stringify(query, null, 2));
   
   // Apply filters if provided
   if (filter) {

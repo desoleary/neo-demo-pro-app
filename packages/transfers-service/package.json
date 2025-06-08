@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "prepare": "pnpm build",
+    "generate-schema": "generate-schema 'src/graphql/schema/**/*.graphql' './schema.graphql'",
+    "build": "tsc && pnpm generate-schema",
     "dev": "ts-node src/index.ts",
     "start": "node dist/index.js",
     "test": "vitest",
