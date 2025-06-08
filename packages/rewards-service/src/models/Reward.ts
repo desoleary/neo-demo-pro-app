@@ -1,4 +1,4 @@
-import { Schema, model, Document, Types, Model } from 'mongoose';
+import { Document, model, Model, Schema, Types } from 'mongoose';
 
 export interface IReward extends Document {
   id: string;

@@ -2,13 +2,12 @@ import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { buildSubgraphSchema } from '@apollo/subgraph';
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import path, { join } from 'path';
 import gql from 'graphql-tag';
 import { createObservabilityPlugins } from '@neo-rewards/skeleton';
 import { seed } from './seed';
-import { connect, Types, Document, Connection, connection } from 'mongoose';
+import { connect, connection, Document, Types } from 'mongoose';
 import dotenv from 'dotenv';
-import path from 'path';
 import RewardModel from './models/Reward';
 
 // Extend the IReward interface to include the _id field

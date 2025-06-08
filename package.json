@@ -18,7 +18,8 @@
     "test:client": "pnpm --filter client exec vitest run",
     "test:build": "pnpm build",
     "test:all": "concurrently \"pnpm test:build\" \"pnpm test:services\" \"pnpm test:gateway\" \"pnpm test:client\"",
-    "seed": "pnpm --filter \"@neo-rewards/*-service\" seed"
+    "seed": "pnpm --filter \"@neo-rewards/*-service\" seed",
+    "kill-apps": "pkill -f \"node|ts-node\""
   },
   "workspaces": [
     "packages/*",

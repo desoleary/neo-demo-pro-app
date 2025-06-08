@@ -5,7 +5,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import gql from 'graphql-tag';
 import { createObservabilityPlugins } from '@neo-rewards/skeleton';
-import mongoose, { connection, disconnect } from 'mongoose';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import AccountModel from './models/Account';
 import TransactionModel from './models/Transaction';
@@ -163,18 +163,13 @@ async function start() {
   
   try {
     await mongoose.connect(mongoUrl);
-    console.log('MongoDB connected successfully');
-    
     // Get the native MongoDB driver connection
     const db = mongoose.connection.db;
     if (db) {
-      console.log('MongoDB connection state:', mongoose.connection.readyState);
       const collections = await db.listCollections().toArray();
-      console.log('Available collections:', collections);
-      
+
       // Log the first few accounts to verify data
       const accounts = await db.collection('accounts').find({}).limit(3).toArray();
-      console.log('Sample accounts:', accounts);
     } else {
       console.error('MongoDB database reference not available');
     }

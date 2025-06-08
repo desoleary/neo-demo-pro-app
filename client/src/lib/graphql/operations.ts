@@ -2,26 +2,24 @@ import { gql } from "@apollo/client";
 
 // User Operations
 export const GET_USERS = gql`
-  query GetUsers($first: Int, $after: String, $orderBy: OrderByInput, $filter: UserFilterInput) {
-    users(first: $first, after: $after, orderBy: $orderBy, filter: $filter) {
-      totalCount
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          _id
-          id
-          email
-          tier
+    query GetUsers($first: Int, $after: String, $orderBy: OrderByInput, $filter: UserFilterInput) {
+        users(first: $first, after: $after, orderBy: $orderBy, filter: $filter) {
+            totalCount
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
+            edges {
+                node {
+                    id
+                    email
+                    tier
+                }
+                cursor
+            }
         }
-        cursor
-      }
     }
-  }
 `;
-
 export const GET_USER = gql`
   query GetUser($identifier: UserIdentifierInput!) {
     user(identifier: $identifier) {

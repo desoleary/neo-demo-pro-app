@@ -1,12 +1,9 @@
-import { ApolloGateway } from '@apollo/gateway';
-import { IntrospectAndCompose } from '@apollo/gateway';
+import { ApolloGateway, IntrospectAndCompose } from '@apollo/gateway';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { createObservabilityPlugins } from '@neo-rewards/skeleton';
 import { default as fetch } from 'node-fetch';
 import { setTimeout } from 'node:timers/promises';
-import { fileURLToPath } from 'node:url';
-import { dirname } from 'node:path';
 
 const SUBGRAPHS = [
   { name: 'auth-service', url: 'http://localhost:4001/graphql' },
