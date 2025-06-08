@@ -7,4 +7,4 @@ const accountSchema = new Schema({
 });
 
 export type Account = InferSchemaType<typeof accountSchema> & { _id: string };
-export default model('Account', accountSchema);
+export default model<Account>('Account', accountSchema);
