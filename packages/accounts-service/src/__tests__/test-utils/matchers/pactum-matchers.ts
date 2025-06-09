@@ -29,7 +29,7 @@ function matchValue(value: any, matcher: any): boolean {
   }
 }
 
-export const toMatchPactumMatcher = (received: any, matcher: any) => {
+export const toMatchPactumMatcher = function(this: any, received: any, matcher: any) {
   const pass = matchValue(received, matcher);
 
   return {

@@ -2,7 +2,7 @@ import { isEmpty, has, includes, isString, isPlainObject, isArray } from 'lodash
 import { diff as jestDiff } from 'jest-diff';
 import { equals } from '@vitest/expect';
 
-export const toBeEmpty = (received: any) => {
+export const toBeEmpty = function(this: any, received: any) {
   const pass = isEmpty(received);
   return {
     pass,
@@ -11,7 +11,7 @@ export const toBeEmpty = (received: any) => {
   };
 };
 
-export const toContainKey = (received: object, key: string) => {
+export const toContainKey = function(this: any, received: object, key: string) {
   const pass = has(received, key);
   return {
     pass,
@@ -20,7 +20,7 @@ export const toContainKey = (received: object, key: string) => {
   };
 };
 
-export const toContainAllKeys = (received: object, keys: string[]) => {
+export const toContainAllKeys = function(this: any, received: object, keys: string[]) {
   const pass = keys.every((key) => has(received, key));
   return {
     pass,
@@ -29,7 +29,7 @@ export const toContainAllKeys = (received: object, keys: string[]) => {
   };
 };
 
-export const toBeOneOf = (received: any, values: any[]) => {
+export const toBeOneOf = function(this: any, received: any, values: any[]) {
   const pass = includes(values, received);
   return {
     pass,
@@ -38,7 +38,7 @@ export const toBeOneOf = (received: any, values: any[]) => {
   };
 };
 
-export const toBeJsonString = (received: any) => {
+export const toBeJsonString = function(this: any, received: any) {
   let parsed;
   let pass = false;
   if (isString(received)) {
@@ -56,7 +56,7 @@ export const toBeJsonString = (received: any) => {
   };
 };
 
-export const toEqualWithDiff = (received: any, expected: any) => {
+export const toEqualWithDiff = function(this: any, received: any, expected: any) {
   const pass = equals(received, expected);
   const diffString =
     jestDiff(expected, received, {

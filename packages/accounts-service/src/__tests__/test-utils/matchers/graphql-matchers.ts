@@ -14,7 +14,7 @@ import { colours } from '../matcherUtils';
  * @returns an object with a `pass` property and a `message` property
  *          that can be used with Vitest's `expect` function.
  */
-export const toBeValidGraphQLResponse = (received: GraphQLResponse<any>) => {
+export const toBeValidGraphQLResponse = function(this: any, received: GraphQLResponse<any>) {
   const wrapper = new GraphqlResponseWrapper(received);
 
   const pass = wrapper.success();
