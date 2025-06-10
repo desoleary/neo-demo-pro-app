@@ -2,7 +2,7 @@ import type { Transaction } from '../../models';
 import { WithId } from '@types';
 
 export function mapTransaction(transaction: WithId<Transaction>) {
-  const { _id, date, ...rest } = transaction as any;
+  const { _id, date, ...rest } = transaction;
   return {
     id: _id.toString(),
     date: date instanceof Date ? date.toISOString() : date,

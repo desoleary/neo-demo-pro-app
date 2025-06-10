@@ -6,10 +6,10 @@ import { mapTransactions } from '../mappers/TransactionMapper';
 export const Query = {
   accounts: resolveGetUserAccounts,
   getUserAccounts: resolveGetUserAccounts,
-  getTransactionHistory: async (_: any, { accountId }: { accountId: string }) => {
-    const transactions = await TransactionModel.find({ accountId }).exec();
-    return mapTransactions(transactions);
-  },
+    getTransactionHistory: async (_: any, { accountId }: { accountId: string }) => {
+      const transactions = await TransactionModel.find({ accountId }).lean();
+      return mapTransactions(transactions);
+    },
 };
 
 async function resolveGetUserAccounts(

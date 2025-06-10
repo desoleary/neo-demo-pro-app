@@ -1,7 +1,7 @@
 import { Factory } from 'fishery';
 import type { Account } from '@models/Account';
 
-type AccountInput = Omit<Account, '_id'>;
+export type AccountInput = Omit<Account, '_id'>;
 
 
 export const accountFactory = Factory.define<AccountInput>(({ sequence }) => ({

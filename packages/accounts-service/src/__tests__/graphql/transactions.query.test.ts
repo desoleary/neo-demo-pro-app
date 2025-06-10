@@ -1,7 +1,7 @@
 import { createTestServer } from '@test-utils/setupTestServer';
 import mongoose from 'mongoose';
-import { transactionFactory } from '../../factories';
-import { TransactionModel } from '../../models';
+import { accountFactory, transactionFactory } from '../../factories';
+import { AccountModel, TransactionModel } from '../../models';
 
 describe('Transactions API', () => {
   const { query } = createTestServer();
@@ -9,13 +9,18 @@ describe('Transactions API', () => {
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGO_URL as string);
 
-    // Seed test transaction linked to accountId "1"
     await TransactionModel.deleteMany({});
-    await TransactionModel.create(transactionFactory.build({
-      accountId: '1',
-      type: 'DEBIT',
-      amount: 123,
-    }));
+    await AccountModel.deleteMany({});
+
+    const account = await AccountModel.create(accountFactory.build({ userId: '1' }));
+
+    await TransactionModel.create(
+      transactionFactory.build({}, { transient: { account } })
+    );
+
+    // Debug — confirm what is in the DB
+    const txs = await TransactionModel.find({}).lean();
+    console.log('Seeded transactions:', txs);
   });
 
   afterAll(async () => {
