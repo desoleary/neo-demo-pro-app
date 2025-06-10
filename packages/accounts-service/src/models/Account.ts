@@ -1,4 +1,4 @@
-import { Schema, model, InferSchemaType } from 'mongoose';
+import { InferSchemaType, model, Schema } from 'mongoose';
 
 const accountSchema = new Schema({
   userId: { type: String, required: true },
@@ -7,4 +7,4 @@ const accountSchema = new Schema({
 });
 
 export type Account = InferSchemaType<typeof accountSchema> & { _id: string };
-export default model('Account', accountSchema);
+export default model<Account>('Account', accountSchema);

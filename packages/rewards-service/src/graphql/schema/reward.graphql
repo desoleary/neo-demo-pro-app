@@ -2,12 +2,58 @@
 
 type Reward @key(fields: "id") {
   id: ID!
+  _id: ID! @deprecated(reason: "Use 'id' instead. This field will be removed in a future version.")
   description: String!
   points: Int!
 }
 
+enum SortOrder {
+  ASC
+  DESC
+}
+
+input OrderByInput {
+  field: String!
+  order: SortOrder = ASC
+  # For backward compatibility
+  direction: SortOrder @deprecated(reason: "Use 'order' instead. This field will be removed in a future version.")
+}
+
+input RewardFilterInput {
+  minPoints: Int
+  maxPoints: Int
+  search: String
+}
+
+type RewardEdge {
+  node: Reward!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type RewardConnection {
+  edges: [RewardEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
 type Query {
-  getRewards(userId: ID!): [Reward]
+  getRewards(userId: ID!): [Reward] @deprecated(reason: "Use 'rewards' query instead")
+  rewards(
+    first: Int
+    after: String
+    last: Int
+    before: String
+    filter: RewardFilterInput
+    orderBy: OrderByInput = { field: "points", order: ASC }
+  ): RewardConnection!
+  reward(id: ID!): Reward
 }
 
 type Mutation {

@@ -1,0 +1,66 @@
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type User
+  @key(fields: "id")
+{
+  id: ID!
+  email: String!
+  tier: String!
+}
+
+"""Filter users by various fields."""
+input UserFilterInput {
+  id: ID
+  email: String
+  tier: String
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+input OrderByInput {
+  field: String!
+  order: SortOrder = ASC
+  direction: SortOrder @deprecated(reason: "Use 'order' instead. This field will be removed in a future version.")
+}
+
+"""A connection to a list of users with pagination info."""
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+"""An edge in a user connection."""
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+type Query
+
+extend type Query {
+  """Get all users with optional filtering and pagination."""
+  users(first: Int, after: String, last: Int, before: String, filter: UserFilterInput, orderBy: OrderByInput = {field: "id", order: ASC}): UserConnection
+  getUserProfile(id: ID!): User
+  login(email: String!, password: String!): User
+}
+
+type Mutation {
+  updateUserTier(id: ID!, tier: String!): User
+}

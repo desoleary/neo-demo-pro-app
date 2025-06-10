@@ -1,4 +1,4 @@
-import { Schema, model, InferSchemaType } from 'mongoose';
+import { InferSchemaType, model, Schema } from 'mongoose';
 
 const transferSchema = new Schema({
   id: { type: String, required: true },

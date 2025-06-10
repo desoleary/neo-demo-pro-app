@@ -1,0 +1,68 @@
+type Transfer implements Node {
+  id: ID!
+  _id: ID! @deprecated(reason: "Use 'id' instead. This field will be removed in a future version.")
+  fromAccountId: ID!
+  toAccountId: ID!
+  amount: Float!
+  status: String!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type TransferResult {
+  id: ID!
+  status: String!
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+input OrderByInput {
+  field: String!
+  order: SortOrder = ASC
+  direction: SortOrder @deprecated(reason: "Use 'order' instead. This field will be removed in a future version.")
+}
+
+input TransferFilterInput {
+  fromAccountId: ID
+  toAccountId: ID
+  status: String
+  minAmount: Float
+  maxAmount: Float
+  startDate: String
+  endDate: String
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type TransferEdge {
+  node: Transfer!
+  cursor: String!
+}
+
+type TransferConnection {
+  edges: [TransferEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type Query {
+  transfers(first: Int, after: String, last: Int, before: String, filter: TransferFilterInput, orderBy: OrderByInput): TransferConnection!
+  transfer(id: ID!): Transfer
+  node(id: ID!): Node
+}
+
+interface Node {
+  id: ID!
+}
+
+type Mutation {
+  initiateTransfer(fromAccountId: ID!, toAccountId: ID!, amount: Float!): TransferResult
+}

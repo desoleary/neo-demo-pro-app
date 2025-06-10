@@ -6,26 +6,38 @@
     "node": ">=22.10.0"
   },
   "scripts": {
-    "lint": "echo \"linting\"",
-    "build": "pnpm -r build",
+    "prepare": "pnpm build",
+    "generate-schemas": "pnpm --parallel --filter \"@neo-rewards/*-service\" run generate-schema",
     "dev": "pnpm start:all",
+    "root:build": "pnpm build",
+    "build": "pnpm -r build",
+    "start:all": "concurrently \"pnpm start:services\" \"pnpm start:gateway\" \"pnpm start:client\"",
     "start:services": "pnpm --parallel --filter \"@neo-rewards/*-service\" dev",
     "start:gateway": "pnpm --filter @neo-rewards/gateway dev",
     "start:client": "pnpm --filter client dev",
-    "start:all": "concurrently \"pnpm start:services\" \"pnpm start:gateway\" \"pnpm start:client\"",
+    "test:all": "concurrently \"pnpm test:build\" \"pnpm test:services\" \"pnpm test:gateway\" \"pnpm test:client\"",
+    "ci:all": "pnpm prepare && pnpm generate-schemas && pnpm test:all && pnpm lint",
     "test:services": "pnpm --parallel --filter \"@neo-rewards/*-service\" exec vitest run",
     "test:gateway": "pnpm --filter @neo-rewards/gateway exec vitest run",
     "test:client": "pnpm --filter client exec vitest run",
-    "test:build": "pnpm build",
-    "test:all": "concurrently \"pnpm test:build\" \"pnpm test:services\" \"pnpm test:gateway\" \"pnpm test:client\"",
-    "seed": "pnpm --filter \"@neo-rewards/*-service\" seed"
+    "lint": "echo \"linting\"",
+    "lint:fix": "echo \"linting and fixing\"",
+    "seed": "pnpm --filter \"@neo-rewards/*-service\" seed",
+    "kill-apps": "pkill -f \"node|ts-node\""
   },
   "workspaces": [
     "packages/*",
     "client"
   ],
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "@types/lodash": "^4.17.17",
+    "@types/lodash-es": "^4.17.12",
+    "concurrently": "^9.1.2",
+    "jest-diff": "30.0.0-beta.3",
+    "jest-matcher-utils": "30.0.0-beta.3",
+    "lodash-es": "^4.17.21",
+    "pactum-matchers": "^1.1.7",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
     "@apollo/subgraph": "^2.11.0",

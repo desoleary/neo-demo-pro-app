@@ -1,0 +1,90 @@
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Account
+  @key(fields: "id")
+{
+  """The unique identifier of the account"""
+  id: ID!
+
+  """
+  @deprecated Use 'id' instead. This field will be removed in a future version.
+  """
+  _id: ID! @deprecated(reason: "Use 'id' instead. This field will be removed in a future version.")
+
+  """The type of the account (e.g., CHECKING, SAVINGS)"""
+  type: String!
+
+  """The current balance of the account"""
+  balance: Float!
+
+  """The ID of the user who owns this account"""
+  userId: ID!
+}
+
+type Transaction {
+  id: ID!
+  accountId: ID!
+  type: String!
+  amount: Float!
+  date: String!
+}
+
+input AccountFilterInput {
+  type: String
+  minBalance: Float
+  maxBalance: Float
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+input OrderByInput {
+  field: String!
+  order: SortOrder = ASC
+  direction: SortOrder @deprecated(reason: "Use 'order' instead. This field will be removed in a future version.")
+}
+
+type AccountConnection {
+  edges: [AccountEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AccountEdge {
+  node: Account!
+  cursor: String!
+}
+
+type Query {
+  """
+  Get accounts for a specific user with optional filtering and pagination
+  """
+  accounts(userId: ID!, first: Int, after: String, last: Int, before: String, filter: AccountFilterInput, orderBy: OrderByInput = {field: "id", order: ASC}): AccountConnection
+
+  """
+  Get accounts for a specific user with optional filtering and pagination (legacy)
+  """
+  getUserAccounts(userId: ID!, first: Int, after: String, last: Int, before: String, filter: AccountFilterInput): AccountConnection
+  getTransactionHistory(accountId: ID!): [Transaction]
+}
+
+extend type User
+  @key(fields: "id")
+{
+  id: ID! @external
+}

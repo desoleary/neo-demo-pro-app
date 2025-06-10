@@ -4,33 +4,35 @@ import { buildSubgraphSchema } from '@apollo/subgraph';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import gql from 'graphql-tag';
-import { createObservabilityPlugins } from '@neo-rewards/skeleton';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import AccountModel from './models/Account';
-import TransactionModel from './models/Transaction';
+
+import { createObservabilityPlugins } from '@neo-rewards/skeleton';
+import resolvers from './graphql/resolvers';
 import { seed } from './seed';
 
 dotenv.config();
 
 const typeDefs = gql`
-  ${readFileSync(join(__dirname, 'graphql/schema/account.graphql'), 'utf8')}
+    ${readFileSync(join(__dirname, 'graphql/schema/account.graphql'), 'utf8')}
 `;
 
-const resolvers = {
-  Query: {
-    getUserAccounts: (_: any, { userId }: { userId: string }) =>
-      AccountModel.find({ userId }).exec(),
-    getTransactionHistory: (_: any, { accountId }: { accountId: string }) =>
-      TransactionModel.find({ accountId }).exec(),
-  },
-};
-
 async function start() {
-  await mongoose.connect(process.env.MONGO_URL as string);
-  if (process.env.NODE_ENV === 'development') {
-    await seed();
+  const mongoUrl = 'mongodb://localhost:27017/neo_demo_pro_app_accounts';
+  console.log('Using MongoDB URL:', mongoUrl);
+
+  try {
+    await mongoose.connect(mongoUrl);
+    console.log('MongoDB connected.');
+
+    if (process.env.NODE_ENV === 'development') {
+      await seed();
+    }
+  } catch (error) {
+    console.error('MongoDB connection error:', error);
+    process.exit(1);
   }
+
   const schema = buildSubgraphSchema([{ typeDefs, resolvers }]);
 
   const server = new ApolloServer({
@@ -45,9 +47,7 @@ async function start() {
     },
   });
 
-  const schemaContent = readFileSync(join(__dirname, 'graphql/schema/account.graphql'), 'utf8');
   console.log(`🚀 accounts-service ready at ${url}`);
-  console.log(`📄 Schema loaded with ${schemaContent.split('\n').length} lines`);
 }
 
 start().catch((error) => {

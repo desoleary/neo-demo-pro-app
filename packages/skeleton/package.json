@@ -3,11 +3,24 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "generate-schema": "./dist/cli/generate-schema.js"
+  },
   "scripts": {
+    "prepare": "pnpm build",
     "build": "tsc"
   },
   "devDependencies": {
     "typescript": "^5.2.2"
+  },
+  "peerDependencies": {
+    "@apollo/server": "^4.7.5"
+  },
+  "dependencies": {
+    "@graphql-tools/load-files": "^7.0.1",
+    "@graphql-tools/merge": "^9.0.24"
   }
 }

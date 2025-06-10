@@ -3,9 +3,15 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  build: {
+    chunkSizeWarningLimit: 1000
+  },
+  esbuild: {
+    target: 'es2020'
+  },
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: './vitest.setup.ts'
+    setupFiles: './vitest.setup.ts',
   }
 });

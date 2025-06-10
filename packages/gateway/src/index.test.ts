@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { createObservabilityPlugins } from '../../skeleton/src/index';
+import { describe, expect, it } from 'vitest';
+import { createObservabilityPlugins } from '@neo-rewards/skeleton';
 
 describe('gateway', () => {
   it('loads observability plugin', () => {
