@@ -1,6 +1,5 @@
 import { seed } from '../seed';
-import AccountModel from '../models/Account';
-import TransactionModel from '../models/Transaction';
+import { AccountModel, TransactionModel } from '@models';
 import mongoose from 'mongoose';
 
 describe('Seed script', () => {

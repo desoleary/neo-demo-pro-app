@@ -2,12 +2,22 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@models/*": ["models/*"],
-      "@test-utils/*": ["__tests__/test-utils/*"],
+      "@test-utils/*": ["src/__tests__/test-utils/*"],
+      "@factories": ["src/__factories__"],
+      "@factories/*": ["src/__factories__/*"],
+      "@models/*": ["src/models/*"],
+      "@models": ["src/models"],
+      "@gql/*": ["src/graphql/*"],
+      "@gql-types/*": ["src/graphql/types/*"],
+      "@gql-queries/*": ["src/graphql/queries/*"],
+      "@gql-mutations/*": ["src/graphql/mutations/*"],
+      "@gql-utils": ["./src/graphql/utils"],
+      "@gql-utils/*": ["./src/graphql/utils/*"],
       "@types": ["types"]
-    }
+
+    },
   },
   "include": ["src"],
   "exclude": ["dist", "node_modules"]

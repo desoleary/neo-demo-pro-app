@@ -1,5 +1,5 @@
 
-import { TransactionModel } from '../../models';
+import { TransactionModel } from '@models';
 import mongoose from 'mongoose';
 
 describe('Transaction Model', () => {

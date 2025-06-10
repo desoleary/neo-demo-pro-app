@@ -1,7 +1,7 @@
 import { connect, disconnect } from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
-import { accountFactory, transactionFactory } from './factories';
+import { accountFactory, transactionFactory } from '@factories';
 import AccountModel from './models/Account';
 import TransactionModel from './models/Transaction';
 
