@@ -7,15 +7,17 @@
       "@test-utils/*": ["src/__tests__/test-utils/*"],
       "@factories": ["src/__factories__"],
       "@factories/*": ["src/__factories__/*"],
-      "@models/*": ["src/models/*"],
       "@models": ["src/models"],
+      "@models/*": ["src/models/*"],
       "@gql/*": ["src/graphql/*"],
       "@gql-types/*": ["src/graphql/types/*"],
+      "@gql-queries": ["src/graphql/queries"],
       "@gql-queries/*": ["src/graphql/queries/*"],
+      "@gql-mutations": ["src/graphql/mutations"],
       "@gql-mutations/*": ["src/graphql/mutations/*"],
       "@gql-utils": ["./src/graphql/utils"],
       "@gql-utils/*": ["./src/graphql/utils/*"],
-      "@types": ["types"]
+      "@types": ["./src/types"]
 
     },
   },
