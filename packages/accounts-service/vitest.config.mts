@@ -19,10 +19,34 @@ export default defineConfig({
       'src/__tests__/**/*.spec.ts',
       'src/__tests__/**/*.model.test.ts',
     ],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'text-summary', 'html'],
+      reportsDirectory: './coverage',
+      all: true, // include files without tests in coverage
+      exclude: [
+        '**/*.d.ts',
+        'src/**/index.ts',
+        'src/__tests__/**',
+        'src/__factories__/**',
+        'src/graphql/schema/**',
+        '**/vitest.setup.ts',
+        '**/test-utils/**',
+      ],
+    },
   },
   resolve: {
     alias: {
       '@test-utils': path.resolve(__dirname, './src/__tests__/test-utils'),
+      '@factories': path.resolve(__dirname, './src/__factories__'),
+      '@models': path.resolve(__dirname, './src/models'),
+      '@gql': path.resolve(__dirname, './src/graphql'),
+      '@gql/*': path.resolve(__dirname, './src/graphql/*'),
+      '@gql-types': path.resolve(__dirname, './src/graphql/types'),
+      '@gql-queries': path.resolve(__dirname, './src/graphql/queries'),
+      '@gql-mutations': path.resolve(__dirname, './src/graphql/mutations'),
+      '@gql-utils': path.resolve(__dirname, './src/graphql/utils'),
+      '@gql-utils/*': path.resolve(__dirname, './src/graphql/utils/*'),
     },
   },
 });

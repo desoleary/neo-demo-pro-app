@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { AccountModel } from '../../models';
+import { AccountModel } from '@models';
 
 describe('Account Model', () => {
   beforeAll(async () => {

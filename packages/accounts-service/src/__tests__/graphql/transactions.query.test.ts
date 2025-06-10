@@ -1,7 +1,7 @@
 import { createTestServer } from '@test-utils/setupTestServer';
 import mongoose from 'mongoose';
-import { accountFactory, transactionFactory } from '../../factories';
-import { AccountModel, TransactionModel } from '../../models';
+import { accountFactory, transactionFactory } from '@factories';
+import { AccountModel, TransactionModel } from '@models';
 
 describe('Transactions API', () => {
   const { query } = createTestServer();

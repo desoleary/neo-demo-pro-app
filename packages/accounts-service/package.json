@@ -10,6 +10,7 @@
     "start": "node dist/index.js",
     "build": "tsc && pnpm generate-schema",
     "test": "vitest",
+    "test:ci": "vitest run --coverage",
     "seed": "tsx src/seed.ts"
   },
   "dependencies": {
