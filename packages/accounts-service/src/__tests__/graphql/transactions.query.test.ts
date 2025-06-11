@@ -18,9 +18,7 @@ describe('Transactions API', () => {
       transactionFactory.build({}, { transient: { account } })
     );
 
-    // Debug — confirm what is in the DB
     const txs = await TransactionModel.find({}).lean();
-    console.log('Seeded transactions:', txs);
   });
 
   afterAll(async () => {
