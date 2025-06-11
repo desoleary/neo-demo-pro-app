@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { AccountModel } from '@models';
+import { AccountModel, AccountType } from '@models';
 
 describe('Account Model', () => {
   beforeAll(async () => {
@@ -14,7 +14,7 @@ describe('Account Model', () => {
     const account = await AccountModel.create({
       id: 'test-id',
       userId: 'test-user',
-      type: 'SAVINGS',
+      type: AccountType.SAVINGS,
       balance: 500,
       createdAt: new Date(),
       updatedAt: new Date(),
