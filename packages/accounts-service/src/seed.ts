@@ -2,8 +2,9 @@ import { connect, disconnect } from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import { accountFactory, transactionFactory } from '@factories';
-import AccountModel from './models/Account';
-import TransactionModel from './models/Transaction';
+
+import { AccountModel, TransactionType, TransactionModel } from '@models';
+
 import colours from '@test-utils/colours'; // adjust if you have different path
 
 // Load .env from project root
@@ -62,7 +63,7 @@ export async function seed({
   // Ensure one transaction for accountId "1"
   transactions.push({
     accountId: '1',
-    type: 'DEBIT',
+    type: TransactionType.DEBIT,
     amount: 100,
     date: new Date(),
     createdAt: new Date(),

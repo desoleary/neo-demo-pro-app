@@ -1,8 +1,8 @@
 import { Schema, model, Document } from 'mongoose';
 
 export enum AccountType {
-  CHEQUING = 'chequing',
-  SAVINGS = 'savings',
+  CHEQUING = 'CHEQUING',
+  SAVINGS = 'SAVINGS',
 }
 
 export interface Account {
@@ -24,7 +24,6 @@ const AccountSchema = new Schema<Account>(
 
 AccountSchema.index({ userId: 1 });
 
-// Optional: normalize the type if passed as an enum key (e.g. 'SAVINGS' → 'savings')
 AccountSchema.pre<AccountDocument>('save', function (next) {
   if (typeof this.type === 'string' && this.type in AccountType) {
     this.type = AccountType[this.type as keyof typeof AccountType];
