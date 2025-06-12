@@ -1,4 +1,4 @@
-import { seed } from '../seed';
+import { seed, DEFAULT_NUMBER_OF_RECORDS, MANUAL_TRANSACTION_COUNT } from '../seed';
 import { AccountModel, TransactionModel } from '@models';
 import mongoose from 'mongoose';
 
@@ -20,7 +20,7 @@ describe('Seed script', () => {
     const accountCount = await AccountModel.countDocuments();
     const transactionCount = await TransactionModel.countDocuments();
 
-    expect(accountCount).toBeGreaterThan(0);
-    expect(transactionCount).toBeGreaterThan(0);
+    expect(accountCount).toBe(DEFAULT_NUMBER_OF_RECORDS);
+    expect(transactionCount).toBe(DEFAULT_NUMBER_OF_RECORDS + MANUAL_TRANSACTION_COUNT);
   });
 });

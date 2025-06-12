@@ -10,8 +10,8 @@ import colours from '@test-utils/colours'; // adjust if you have different path
 // Load .env from project root
 dotenv.config({ path: path.resolve(process.cwd(), '../../.env') });
 
-const DEFAULT_NUMBER_OF_RECORDS = 100;
-const MANUAL_TRANSACTION_COUNT = 1;
+export const DEFAULT_NUMBER_OF_RECORDS = 100;
+export const MANUAL_TRANSACTION_COUNT = 1;
 
 // Parse CLI args
 const args = process.argv.slice(2);
