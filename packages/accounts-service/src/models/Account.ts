@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 export enum AccountType {
   CHEQUING = 'CHEQUING',
@@ -11,9 +11,9 @@ export interface Account {
   balance: number;
 }
 
-export type AccountDocument = Document & Account;
+export interface AccountDocument extends Document, Account {} // <== just this, no _id
 
-const AccountSchema = new Schema<Account>(
+const AccountSchema = new Schema<AccountDocument>(
   {
     userId: { type: String, required: true },
     type: { type: String, enum: Object.values(AccountType), required: true },
@@ -31,6 +31,6 @@ AccountSchema.pre<AccountDocument>('save', function (next) {
   next();
 });
 
-const AccountModel = model<Account>('Account', AccountSchema);
+const AccountModel = model<AccountDocument>('Account', AccountSchema);
 
 export default AccountModel;

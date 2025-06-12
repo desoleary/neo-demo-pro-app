@@ -55,22 +55,23 @@ export async function seed({
   await AccountModel.deleteMany({});
   await TransactionModel.deleteMany({});
 
+  // Insert accounts first
   const accounts = Array.from({ length: numRecords }, () => accountFactory.build());
-  const transactions = Array.from({ length: numRecords }, () =>
-    transactionFactory.build()
+  const insertedAccounts = await AccountModel.insertMany(accounts);
+
+  // Now build transactions with correct transient param
+  const transactions = insertedAccounts.map(account =>
+    transactionFactory.build({}, { transient: { account } })
   );
 
-  // Ensure one transaction for accountId "1"
+  // Add manual transaction for accountId "1"
   transactions.push({
     accountId: '1',
     type: TransactionType.DEBIT,
     amount: 100,
-    date: new Date(),
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    date: new Date()
   });
 
-  await AccountModel.insertMany(accounts);
   await TransactionModel.insertMany(transactions);
 
   console.log(colours.greenText('[seed] Seeded accounts and transactions.'));

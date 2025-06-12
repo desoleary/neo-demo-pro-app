@@ -91,10 +91,10 @@ async function resolveGetUserAccounts(
     return {
       node: {
         ...rest,
-        id: _id.toString(),
-        _id: _id.toString(),
+        id: account.id,
+        _id: account.id,
       },
-      cursor: _id.toString(),
+      cursor: account.id,
     };
   });
 

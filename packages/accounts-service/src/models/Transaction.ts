@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Types } from 'mongoose';
 
 export enum TransactionType {
   DEBIT = 'DEBIT',
@@ -12,7 +12,9 @@ export interface Transaction {
   date: Date;
 }
 
-export type TransactionDocument = Document & Transaction;
+export interface TransactionDocument extends Document<Types.ObjectId>, Transaction {
+  _id: Types.ObjectId;
+}
 
 const transactionSchema = new Schema<Transaction>(
   {

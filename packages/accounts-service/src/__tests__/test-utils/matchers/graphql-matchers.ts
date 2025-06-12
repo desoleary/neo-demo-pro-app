@@ -1,6 +1,6 @@
 import { GraphQLResponse } from '@apollo/server';
 import GraphqlResponseWrapper from '../GraphqlResponseWrapper';
-import { colours } from '../matcherUtils';
+import { colours, formatValue } from '../matcherUtils';
 
 /**
  * Asserts that a GraphQL response is valid.
@@ -80,13 +80,6 @@ export const toBeValidGraphQLResponse = function(this: any, received: GraphQLRes
 
 // Helper to print response shape in friendly format
 function printResponseShape(response: { data: unknown; errors: unknown }) {
-  const formatValue = (value: unknown): string => {
-    if (Array.isArray(value)) return '[]';
-    if (value !== null && typeof value === 'object') return '{ ... }';
-    if (typeof value === 'string') return `"${value}"`;
-    return String(value);
-  };
-
   console.log(`{\n  data: ${formatValue(response.data)},\n  errors: ${formatValue(response.errors)}\n}`);
 }
 
