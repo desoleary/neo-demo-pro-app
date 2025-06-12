@@ -1,9 +1,9 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { buildSubgraphSchema } from '@apollo/subgraph';
-import { readFileSync } from 'fs';
-import { join } from 'path';
-import gql from 'graphql-tag';
+import path from 'path';
+import { loadFilesSync } from '@graphql-tools/load-files';
+import { mergeTypeDefs } from '@graphql-tools/merge';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
@@ -13,9 +13,9 @@ import { seed } from './seed';
 
 dotenv.config();
 
-const typeDefs = gql`
-    ${readFileSync(join(__dirname, 'graphql/schema/account.graphql'), 'utf8')}
-`;
+// Load and merge GraphQL schemas dynamically
+const typeDefsArray = loadFilesSync(path.join(__dirname, './graphql/schemas/**/*.graphql'));
+const typeDefs = mergeTypeDefs(typeDefsArray);
 
 async function start() {
   const mongoUrl = 'mongodb://localhost:27017/neo_demo_pro_app_accounts';

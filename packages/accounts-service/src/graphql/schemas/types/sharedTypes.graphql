@@ -1,0 +1,20 @@
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+    startCursor: String
+    endCursor: String
+}
+
+enum SortOrder {
+    ASC
+    DESC
+}
+
+input OrderByInput {
+    field: String!
+    order: SortOrder = ASC
+    direction: SortOrder @deprecated(reason: "Use 'order' instead. This field will be removed in a future version.")
+}

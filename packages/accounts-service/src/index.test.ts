@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import AccountModel from './models/Account';
-import { accountFactory } from './factories/accountFactory';
+import { accountFactory } from '@factories';
 
 let mongo: MongoMemoryServer;
 

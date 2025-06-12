@@ -3,6 +3,6 @@
   "compilerOptions": {
     "types": ["vitest"]
   },
-  "include": ["src/__tests__/**/*.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["src/**/*.test.ts", "src/**/*.spec.ts", "src/__tests__/**/*.ts"],
+  "exclude": ["dist", "node_modules", "coverage"]
 }
