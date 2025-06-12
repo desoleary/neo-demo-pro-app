@@ -15,6 +15,10 @@
       "@gql-queries/*": ["src/graphql/queries/*"],
       "@gql-mutations": ["src/graphql/mutations"],
       "@gql-mutations/*": ["src/graphql/mutations/*"],
+      "@gql-resolvers": ["src/graphql/resolvers"],
+      "@gql-resolvers/*": ["src/graphql/resolvers/*"],
+      "@gql-mappers": ["src/graphql/mappers"],
+      "@gql-mappers/*": ["src/graphql/mappers/*"],
       "@gql-utils": ["./src/graphql/utils"],
       "@gql-utils/*": ["./src/graphql/utils/*"],
       "@types": ["./src/types"]

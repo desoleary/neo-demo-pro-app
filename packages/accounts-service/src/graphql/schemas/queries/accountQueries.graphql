@@ -1,0 +1,20 @@
+type Query {
+    accounts(
+        userId: ID!
+        first: Int
+        after: String
+        last: Int
+        before: String
+        filter: AccountFilterInput
+        orderBy: OrderByInput = { field: "id", order: ASC }
+    ): AccountConnection
+
+    getUserAccounts(
+        userId: ID!
+        first: Int
+        after: String
+        last: Int
+        before: String
+        filter: AccountFilterInput
+    ): AccountConnection
+}

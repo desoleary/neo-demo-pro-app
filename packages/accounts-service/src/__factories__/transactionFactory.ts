@@ -1,9 +1,7 @@
 import { Factory } from 'fishery';
 import { faker } from '@faker-js/faker';
 import TransactionModel, { Transaction, TransactionDocument, TransactionType } from '@models/Transaction';
-import { accountFactory } from './accountFactory';
 import { AccountDocument } from '@models';
-import { DEFAULT_ACCOUNT_ID } from './factoryConstants';
 
 export type TransactionInput = Transaction;
 
@@ -13,7 +11,7 @@ export const transactionFactory = Factory.define<TransactionInput, { account?: A
     if (!account) throw new Error('transactionFactory requires account in transientParams');
 
     return {
-      accountId: account.id ?? DEFAULT_ACCOUNT_ID,
+      accountId: account._id.toString(), // USE THIS — not `account.id`
       type: faker.helpers.arrayElement(Object.values(TransactionType)),
       amount: faker.number.float({ min: 10, max: 1000, fractionDigits: 2 }),
       date: faker.date.past({ years: 1 }),

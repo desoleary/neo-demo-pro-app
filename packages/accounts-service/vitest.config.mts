@@ -17,7 +17,6 @@ export default defineConfig({
     include: [
       'src/__tests__/**/*.test.ts',
       'src/__tests__/**/*.spec.ts',
-      'src/__tests__/**/*.model.test.ts',
     ],
     coverage: {
       provider: 'v8',
@@ -51,6 +50,10 @@ export default defineConfig({
       '@gql-queries/*': path.resolve(__dirname, './src/graphql/queries/*'),
       '@gql-mutations': path.resolve(__dirname, './src/graphql/mutations'),
       '@gql-mutations/*': path.resolve(__dirname, './src/graphql/mutations/*'),
+      '@gql-resolvers': path.resolve(__dirname, './src/graphql/resolvers'),
+      '@gql-resolvers/*': path.resolve(__dirname, './src/graphql/resolvers/*'),
+      '@gql-mappers': path.resolve(__dirname, './src/graphql/mappers'),
+      '@gql-mappers/*': path.resolve(__dirname, './src/graphql/mappers/*'),
       '@gql-utils': path.resolve(__dirname, './src/graphql/utils'),
       '@gql-utils/*': path.resolve(__dirname, './src/graphql/utils/*'),
     },

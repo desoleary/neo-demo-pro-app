@@ -1,0 +1,24 @@
+type Account @key(fields: "id") {
+    id: ID!
+    _id: ID! @deprecated(reason: "Use 'id' instead. This field will be removed in a future version.")
+    type: String!
+    balance: Float!
+    userId: ID!
+}
+
+input AccountFilterInput {
+    type: String
+    minBalance: Float
+    maxBalance: Float
+}
+
+type AccountConnection {
+    edges: [AccountEdge!]!
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type AccountEdge {
+    node: Account!
+    cursor: String!
+}

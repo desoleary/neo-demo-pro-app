@@ -1,0 +1,7 @@
+type Transaction {
+    id: ID!
+    accountId: ID!
+    type: String!
+    amount: Float!
+    date: String!
+}

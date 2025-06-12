@@ -11,7 +11,9 @@ export interface Account {
   balance: number;
 }
 
-export interface AccountDocument extends Document, Account {} // <== just this, no _id
+export interface AccountDocument extends Document<Types.ObjectId>, Account {
+  _id: Types.ObjectId;
+}
 
 const AccountSchema = new Schema<AccountDocument>(
   {

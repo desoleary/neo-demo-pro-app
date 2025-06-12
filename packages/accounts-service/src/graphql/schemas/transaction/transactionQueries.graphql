@@ -1,0 +1,3 @@
+extend type Query {
+    getTransactionHistory(accountId: ID!): [Transaction]
+}

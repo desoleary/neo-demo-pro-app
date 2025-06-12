@@ -1,13 +1,12 @@
 import { createTestServer } from '@test-utils/setupTestServer';
 import mongoose from 'mongoose';
 import { accountFactory, transactionFactory } from '@factories';
-import { AccountModel, TransactionModel } from '@models';
-import type { AccountDocument } from '@models';
+import { AccountModel, TransactionModel, AccountDocument } from '@models';
 
 describe('Transactions API', () => {
   const { query } = createTestServer();
 
-  let account: AccountDocument; // store the inserted account
+  let account: AccountDocument;
 
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGO_URL as string);
@@ -34,7 +33,7 @@ describe('Transactions API', () => {
   it('fetches transactions for a given account', async () => {
     const res = await query(`
       query {
-        getTransactionHistory(accountId: "${account.id.toString()}") {
+        getTransactionHistory(accountId: "${account._id.toString()}") {
           id
           accountId
           amount
@@ -53,7 +52,7 @@ describe('Transactions API', () => {
     expect(transactions).toEqualWithDiff(
       expect.arrayContaining([
         expect.objectContaining({
-          accountId: account.id.toString(),
+          accountId: account._id.toString(),
           amount: expect.any(Number),
           id: expect.any(String),
           type: expect.stringMatching(/^(DEBIT|CREDIT)$/),

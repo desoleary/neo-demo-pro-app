@@ -5,9 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "generate-schema": "generate-schema 'src/graphql/schema/**/*.graphql' './schema.graphql'",
+    "generate-schema": "generate-schema 'src/graphql/schemas/**/*.graphql'",
     "dev": "tsx src/index.ts",
-    "start": "node dist/index.js",
     "build": "tsc && pnpm generate-schema",
     "test": "vitest",
     "test:ci": "vitest run --coverage",

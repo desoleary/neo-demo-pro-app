@@ -31,6 +31,8 @@
   ],
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",
+    "@graphql-tools/load-files": "7.0.1",
+    "@graphql-tools/merge": "9.0.22",
     "@types/lodash": "^4.17.17",
     "@types/lodash-es": "^4.17.12",
     "@vitest/coverage-v8": "^1.6.1",
