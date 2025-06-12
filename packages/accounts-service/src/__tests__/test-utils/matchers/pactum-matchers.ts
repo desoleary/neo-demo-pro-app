@@ -1,4 +1,21 @@
 import isEqual from 'lodash-es/isEqual';
+import colours from '@test-utils/colours';
+import { formatValue } from '@test-utils/matcherUtils';
+
+export const toMatchPactumMatcher = function(this: any, received: unknown, expected: unknown) {
+  const pass = matchValue(received, expected);
+
+  return {
+    pass,
+    message: () => {
+      if (pass) {
+        return colours.greenText(`expected Pactum response not to match, but it did`);
+      } else {
+        return colours.redText(`expected Pactum response to match:\n${formatValue(expected)}\nreceived:\n${formatValue(received)}`);
+      }
+    },
+  };
+};
 
 function matchValue(value: any, matcher: any): boolean {
   if (matcher && typeof matcher === 'object' && matcher.pactum_type) {
@@ -29,19 +46,6 @@ function matchValue(value: any, matcher: any): boolean {
   }
 }
 
-export const toMatchPactumMatcher = function(this: any, received: any, matcher: any) {
-  const pass = matchValue(received, matcher);
-
-  return {
-    pass,
-    message: () =>
-      pass
-        ? `✅ expected value NOT to match Pactum matcher, but it did.`
-        : `❌ expected value to match Pactum matcher.\n\nReceived:\n${JSON.stringify(received, null, 2)}\n\nExpected matcher:\n${JSON.stringify(matcher, null, 2)}`,
-  };
-};
-
-// Export as object for expect.extend()
 export const pactumMatchers = {
   toMatchPactumMatcher,
 };

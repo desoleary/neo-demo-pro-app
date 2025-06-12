@@ -6,12 +6,29 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./types": {
+      "import": "./dist/types.js",
+      "require": "./dist/types.js",
+      "types": "./dist/types.d.ts"
+    },
+    "./utils/pagination": {
+      "import": "./dist/utils/pagination/index.js",
+      "require": "./dist/utils/pagination/index.js",
+      "types": "./dist/utils/pagination/index.d.ts"
+    }
+  },
   "bin": {
     "generate-schema": "./dist/cli/generate-schema.js"
   },
   "scripts": {
     "prepare": "pnpm build",
-    "build": "tsc"
+    "build": "tsc --build"
   },
   "devDependencies": {
     "typescript": "^5.2.2"

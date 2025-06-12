@@ -1,10 +1,12 @@
 import { createTestServer } from '@test-utils/setupTestServer';
 import mongoose from 'mongoose';
 import { accountFactory, transactionFactory } from '@factories';
-import { AccountModel, TransactionModel } from '@models';
+import { AccountModel, TransactionModel, AccountDocument } from '@models';
 
 describe('Transactions API', () => {
   const { query } = createTestServer();
+
+  let account: AccountDocument;
 
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGO_URL as string);
@@ -12,26 +14,26 @@ describe('Transactions API', () => {
     await TransactionModel.deleteMany({});
     await AccountModel.deleteMany({});
 
-    const account = await AccountModel.create(accountFactory.build({ userId: '1' }));
+    const accountData = accountFactory.build({ userId: '1' });
+
+    account = await AccountModel.create({
+      ...accountData,
+      _id: new mongoose.Types.ObjectId('000000000000000000000001'),
+    });
 
     await TransactionModel.create(
       transactionFactory.build({}, { transient: { account } })
     );
-
-    // Debug — confirm what is in the DB
-    const txs = await TransactionModel.find({}).lean();
-    console.log('Seeded transactions:', txs);
   });
 
   afterAll(async () => {
     await mongoose.disconnect();
   });
 
-
   it('fetches transactions for a given account', async () => {
     const res = await query(`
       query {
-        getTransactionHistory(accountId: "1") {
+        getTransactionHistory(accountId: "${account._id.toString()}") {
           id
           accountId
           amount
@@ -47,16 +49,15 @@ describe('Transactions API', () => {
     expect(Array.isArray(transactions)).toBe(true);
     expect(transactions.length).toBeGreaterThan(0);
 
-    // This is much safer than using .every()
     expect(transactions).toEqualWithDiff(
       expect.arrayContaining([
         expect.objectContaining({
-          accountId: '1',
+          accountId: account._id.toString(),
           amount: expect.any(Number),
           id: expect.any(String),
           type: expect.stringMatching(/^(DEBIT|CREDIT)$/),
         }),
-      ]),
+      ])
     );
   });
 });

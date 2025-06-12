@@ -1,0 +1,1 @@
+export { resolveGetUserAccounts } from './resolveGetUserAccounts';

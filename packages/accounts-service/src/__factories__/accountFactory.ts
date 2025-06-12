@@ -1,23 +1,30 @@
 import { Factory } from 'fishery';
 import { faker } from '@faker-js/faker';
-import AccountModel from '@models/Account';
-import type { Account } from '@models/Account';
+import { AccountModel, Account, AccountDocument, AccountType } from '@models';
+import { DEFAULT_USER_ID } from './factoryConstants';
 
-export type AccountInput = Omit<Account, '_id'>;
+export type AccountInput = Account;
 
-export const accountFactory = Factory.define<AccountInput>(({ sequence }) => ({
-  userId: (sequence % 10).toString(),
-  type: faker.helpers.arrayElement(['chequing', 'savings']),
-  balance: faker.number.float({ min: 100, max: 5000, fractionDigits: 2 }),
-}));
+export const accountFactory = Factory.define<AccountInput, { userId?: string }>(
+  ({ transientParams }) => ({
+    userId: transientParams.userId ?? DEFAULT_USER_ID,
+    type: faker.helpers.arrayElement(Object.values(AccountType)),
+    balance: faker.number.float({ min: 100, max: 5000, fractionDigits: 2 }),
+  })
+);
 
-export const buildAccountModel = (overrides?: Partial<AccountInput>) => {
-  const data = accountFactory.build(overrides);
+export const buildAccountModel = (
+  overrides?: Partial<AccountInput>,
+  transient?: { userId?: string }
+): AccountDocument => {
+  const data = accountFactory.build(overrides, { transient });
   return new AccountModel(data);
 };
 
-export const createAccountModel = async (overrides?: Partial<AccountInput>) => {
-  const model = buildAccountModel(overrides);
-  await model.save();
-  return model;
+export const createAccountModel = async (
+  overrides?: Partial<AccountInput>,
+  transient?: { userId?: string }
+): Promise<AccountDocument> => {
+  const data = accountFactory.build(overrides, { transient });
+  return AccountModel.create(data);
 };
