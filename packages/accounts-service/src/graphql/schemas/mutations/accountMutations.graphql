@@ -1,0 +1,21 @@
+input CreateAccountInput {
+    userId: ID!
+    type: String!
+    balance: Float!
+}
+
+input UpdateAccountInput {
+    id: ID!
+    type: String
+    balance: Float
+}
+
+type DeletePayload {
+    success: Boolean!
+}
+
+extend type Mutation {
+    createAccount(input: CreateAccountInput): Account!
+    updateAccount(input: UpdateAccountInput): Account
+    deleteAccount(id: ID!): DeletePayload!
+}

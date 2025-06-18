@@ -22,8 +22,7 @@
       "@gql-utils": ["./src/graphql/utils"],
       "@gql-utils/*": ["./src/graphql/utils/*"],
       "@types": ["./src/types"]
-
-    },
+    }
   },
   "include": ["src"],
   "exclude": ["dist", "node_modules"]

@@ -3,27 +3,23 @@ import { buildAccountQuery } from './accountQueryBuilder';
 import { paginateMongoResults, mapPaginationInputToArgs } from '@neo-rewards/skeleton';
 import type { PaginationInput } from '@neo-rewards/skeleton';
 
+type AccountFilter = {
+  type?: string;
+  minBalance?: number;
+  maxBalance?: number;
+};
+
 type GetUserAccountsArgs = PaginationInput & {
   userId: string;
-  filter?: {
-    type?: string;
-    minBalance?: number;
-    maxBalance?: number;
-  };
+  filter?: AccountFilter;
 };
 
 export async function resolveGetUserAccounts(
   _: unknown,
-  {
-    userId,
-    first,
-    after,
-    last,
-    before,
-    orderBy,
-    filter = {},
-  }: GetUserAccountsArgs
+  args: GetUserAccountsArgs
 ) {
+  const { userId, first, after, last, before, orderBy, filter = {} } = args;
+
   const query = buildAccountQuery(userId, filter);
   const totalCount = await AccountModel.countDocuments(query);
 
